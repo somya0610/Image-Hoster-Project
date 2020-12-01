@@ -12,14 +12,11 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-    //Write the code to inject the ImageService bean
     @Autowired
-    ImageService imageService;
+    private ImageService imageService;
 
     @RequestMapping("/")
     public String getAllImages(Model model) {
-        //Call getAllImages() method in ImageService class to get the list of all images
-        //Add the list of images in the model with the key as "images"
         List<Image> images = imageService.getAllImages();
         model.addAttribute("images", images);
         return "index";

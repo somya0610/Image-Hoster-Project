@@ -1,24 +1,15 @@
 package ImageHoster.model;
+
 import java.util.Date;
 
 public class Image {
 
-    //id of the image
     private Integer id;
-
-    //title of the image
     private String title;
-
-    //The image in Base64 format
     private String imageFile;
-
-    //Description of the image
     private String description;
-
-    //Date on which the image is posted
     private Date date;
 
-    //Write the constructor for id, title, imageFile, and date
     public Image(Integer id, String title, String imageFile, Date date) {
         this.id = id;
         this.title = title;
@@ -26,7 +17,6 @@ public class Image {
         this.date = date;
     }
 
-    //Write getter and setter for all the attributes
     public Integer getId() {
         return id;
     }
