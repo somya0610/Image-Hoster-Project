@@ -9,7 +9,6 @@ public class UserProfile {
     private String mobileNumber;
 
 
-    //Generate getters and setters for all the attributes
     public Integer getId() {
         return id;
     }

@@ -8,7 +8,6 @@ public class User {
     private String password;
     private UserProfile profile;
 
-   //Genarate getters and setters for all the attributes
     public Integer getId() {
         return id;
     }

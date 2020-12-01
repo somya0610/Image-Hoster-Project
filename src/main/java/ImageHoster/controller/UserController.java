@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
+
 @Controller
 public class UserController {
 
@@ -19,14 +20,9 @@ public class UserController {
     //This controller method is called when the request pattern is of type 'users/registration'
     @RequestMapping("users/registration")
     public String registration(Model model) {
-        //Complete this method
-        //Observe User and UserProfile models implemented
-        //Declare an object of User class and UserProfile class
-        UserProfile profile = new UserProfile();
         User user = new User();
-        //Set the profile of the user as UserProfile type object
+        UserProfile profile = new UserProfile();
         user.setProfile(profile);
-        //Add user in the model and return 'users/registration.html'
         model.addAttribute("User", user);
         return "users/registration";
     }
@@ -34,10 +30,28 @@ public class UserController {
     //This controller method is called when the request pattern is of type 'users/registration' and also the incoming request is of POST type
     @RequestMapping(value = "users/registration", method = RequestMethod.POST)
     public String registerUser(User user) {
-        //Complete this method
-        //Call the business logic which currently does not store the details of the user in the database
         userService.registerUser(user);
-        //After registration, again redirect to the registration page
-        return "redirect:registration";
+        return "redirect:/users/login";
+    }
+
+    //This controller method is called when the request pattern is of type 'users/login'
+    @RequestMapping("users/login")
+    public String login() {
+        //Complete this method to return the 'users/login.html'
+        return "users/login";
+    }
+
+    //This controller method is called when the request pattern is of type 'users/login' and also the incoming request is of POST type
+    @RequestMapping(value = "users/login", method = RequestMethod.POST)
+    public String loginUser(User user) {
+        //Complete this method
+        //The method calls the login() method passing user as an argument
+        //If login() method returns true, successful login, direct to the method mapped with request of type '/images'
+        //If login() method returns false, unsuccessful login, redirect to the same login page
+        if (userService.login(user)) {
+            return "redirect:/images";
+        } else {
+            return "redirect:/users/login";
+        }
     }
 }
