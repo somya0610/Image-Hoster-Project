@@ -53,7 +53,6 @@ public class UserController {
     public String loginUser(User user, HttpSession session) {
         User existingUser = userService.login(user);
         if (existingUser != null) {
-            //Set the attribute of the session with existingUser and 'loggeduser' as the key
             session.setAttribute("loggeduser", existingUser);
             return "redirect:/images";
         } else {
