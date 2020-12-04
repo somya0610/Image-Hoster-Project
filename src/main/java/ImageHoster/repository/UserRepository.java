@@ -38,15 +38,14 @@ public class UserRepository {
     //Returns the fetched user
     //Returns null in case of NoResultException
     public User checkUser(String username, String password) {
-        //Complete the method
-        EntityManager entityManager = emf.createEntityManager();
         try {
-            TypedQuery<User> typedQuery = entityManager.createQuery("select u from User u where u.username = :un and u.password = :pwd", User.class);
-            typedQuery.setParameter("un", username);
-            typedQuery.setParameter("pwd", password);
-            User user = typedQuery.getSingleResult();
-            return user;
-        } catch (NoResultException e) {
+            EntityManager em = emf.createEntityManager();
+            TypedQuery<User> typedQuery = em.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password", User.class);
+            typedQuery.setParameter("username", username);
+            typedQuery.setParameter("password", password);
+
+            return typedQuery.getSingleResult();
+        } catch (NoResultException nre) {
             return null;
         }
     }

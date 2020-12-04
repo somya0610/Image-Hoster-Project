@@ -24,10 +24,9 @@ public class UserService {
     //The Repository returns User type object if user with entered username and password exists in the database
     //Else returns null
     public User login(User user) {
-        //Complete the method
         User existingUser = userRepository.checkUser(user.getUsername(), user.getPassword());
         if (existingUser != null) {
-            return  existingUser;
+            return existingUser;
         } else {
             return null;
         }
