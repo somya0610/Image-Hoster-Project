@@ -1,15 +1,20 @@
 package ImageHoster.service;
 
 import ImageHoster.model.User;
+import ImageHoster.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
-    //We are not currently storing the details of the user anywhere
-    //We will be storing the user details in the Database & ORMs part
+    @Autowired
+    private UserRepository userRepository;
+
+    //Call the registerUser() method in the UserRepository class to persist the user record in the database
     public void registerUser(User newUser) {
-        return;
+        //Complete the method
+        userRepository.registerUser(newUser);
     }
 
     //Since we do not have any user in the database, therefore the user with username 'upgrad' and password 'password' is hard-coded
