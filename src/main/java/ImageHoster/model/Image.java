@@ -17,13 +17,15 @@ public class Image {
         this.date = date;
     }
 
-    //Write the constructor for all the attributes of the image
     public Image(Integer id, String title, String imageFile, String description, Date date) {
         this.id = id;
         this.title = title;
         this.imageFile = imageFile;
         this.description = description;
         this.date = date;
+    }
+
+    public Image() {
     }
 
     public Integer getId() {
