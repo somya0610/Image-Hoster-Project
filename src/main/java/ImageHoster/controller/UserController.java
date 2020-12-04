@@ -22,7 +22,6 @@ public class UserController {
     //Adds User type object to a model and returns 'users/registration.html' file
     @RequestMapping("users/registration")
     public String registration(Model model) {
-        //Complete the method
         User user = new User();
         UserProfile profile = new UserProfile();
         user.setProfile(profile);
@@ -34,9 +33,8 @@ public class UserController {
     //This method calls the business logic and after the user record is persisted in the database, directs to login page
     @RequestMapping(value = "users/registration", method = RequestMethod.POST)
     public String registerUser(User user) {
-        //Complete the method
         userService.registerUser(user);
-        return "redirect:login";
+        return "redirect:/users/login";
     }
 
     //This controller method is called when the request pattern is of type 'users/login'
@@ -46,10 +44,14 @@ public class UserController {
     }
 
     //This controller method is called when the request pattern is of type 'users/login' and also the incoming request is of POST type
+    //The return type of the business logic is changed to User type instead of boolean type. The login() method in the business logic checks whether the user with entered username and password exists in the database and returns the User type object if user with entered username and password exists in the database, else returns null
+    //If user with entered username and password exists in the database, direct to user homepage displaying all the images in the application
+    //If user with entered username and password does not exist in the database, redirect to the same login page
     @RequestMapping(value = "users/login", method = RequestMethod.POST)
     public String loginUser(User user) {
-        boolean userExists = userService.login(user);
-        if (userExists) {
+        //Complete the method
+        User existingUser = userService.login(user);
+        if (existingUser != null) {
             return "redirect:/images";
         } else {
             return "users/login";
