@@ -97,13 +97,12 @@ public class ImageRepository {
     //The transaction is committed if it is successful
     //The transaction is rolled back in case of unsuccessful transaction
     public void deleteImage(Integer imageId) {
-        //Complete the method
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
+
         try {
             transaction.begin();
-            TypedQuery<Image> typedQuery = em.createQuery("SELECT i from Image i where i.id =:imageId", Image.class).setParameter("imageId", imageId);
-            Image image = typedQuery.getSingleResult();
+            Image image = em.find(Image.class, imageId);
             em.remove(image);
             transaction.commit();
         } catch (Exception e) {
