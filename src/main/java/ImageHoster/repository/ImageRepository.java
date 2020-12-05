@@ -1,7 +1,6 @@
 package ImageHoster.repository;
 
 import ImageHoster.model.Image;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -65,9 +64,9 @@ public class ImageRepository {
     //Executes JPQL query to fetch the image from the database with corresponding id
     //Returns the image fetched from the database
     public Image getImage(Integer imageId) {
-        //Complete the method
         EntityManager em = emf.createEntityManager();
-        Image image = em.find(Image.class, imageId);
+        TypedQuery<Image> typedQuery = em.createQuery("SELECT i from Image i where i.id =:imageId", Image.class).setParameter("imageId", imageId);
+        Image image = typedQuery.getSingleResult();
         return image;
     }
 
@@ -77,7 +76,6 @@ public class ImageRepository {
     //The transaction is committed if it is successful
     //The transaction is rolled back in case of unsuccessful transaction
     public void updateImage(Image updatedImage) {
-        //Complete the method
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
 
@@ -90,5 +88,27 @@ public class ImageRepository {
         }
     }
 
+    //The method receives the Image id of the image to be deleted in the database
+    //Creates an instance of EntityManager
+    //Starts a transaction
+    //Get the image with corresponding image id from the database
+    //This changes the state of the image model from detached state to persistent state, which is very essential to use the remove() method
+    //If you use remove() method on the object which is not in persistent state, an exception is thrown
+    //The transaction is committed if it is successful
+    //The transaction is rolled back in case of unsuccessful transaction
+    public void deleteImage(Integer imageId) {
+        //Complete the method
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        try {
+            transaction.begin();
+            TypedQuery<Image> typedQuery = em.createQuery("SELECT i from Image i where i.id =:imageId", Image.class).setParameter("imageId", imageId);
+            Image image = typedQuery.getSingleResult();
+            em.remove(image);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+        }
+    }
 
 }
